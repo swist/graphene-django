@@ -23,7 +23,6 @@ from graphene import (
 from graphene.types.json import JSONString
 from graphene.utils.str_converters import to_camel_case, to_const
 from graphql import assert_valid_name, GraphQLError
-from graphql.pyutils import register_description
 
 from .compat import ArrayField, HStoreField, JSONField, RangeField
 from .fields import DjangoListField, DjangoConnectionField
@@ -256,4 +255,10 @@ def convert_postgres_range_to_string(field, registry=None):
 
 # Register Django lazy()-wrapped values as GraphQL description/help_text.
 # This is needed for using lazy translations, see https://github.com/graphql-python/graphql-core-next/issues/58.
-register_description(Promise)
+
+DESCRIPTION_REGISTERED = False
+if not DESCRIPTION_REGISTERED:
+    from graphql.pyutils import register_description
+
+    register_description(Promise)
+    DESCRIPTION_REGISTERED = True
