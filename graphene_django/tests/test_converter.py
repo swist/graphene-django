@@ -202,7 +202,7 @@ def test_field_with_choices_convert_enum_false():
         help_text="Language", choices=(("es", "Spanish"), ("en", "English"))
     )
 
-    class TranslatedModel(models.Model):
+    class AnotherTranslatedModel(models.Model):
         language = field
 
         class Meta:
